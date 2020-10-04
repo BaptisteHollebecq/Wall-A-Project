@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WallA : MonoBehaviour
 {
@@ -43,8 +44,9 @@ public class WallA : MonoBehaviour
 
     IEnumerator MoveToNextNode()
     {
+        //StartCoroutine(RotateTowards());
         var initPos = transform.position;
-       //var initRot = m_Transform.rotation;
+       
 
         for (float f = 0; f < 1; f += Time.deltaTime / movementSpeed)
         {
@@ -60,5 +62,28 @@ public class WallA : MonoBehaviour
        // Debug.Log(currentNode);
 
         GetNextNode();
+    }
+
+  /*  IEnumerator RotateTowards()
+    {
+        var initRot = transform.rotation;
+
+        for (float f = 0; f < 1; f += Time.deltaTime / movementSpeed)
+        {
+            var targetRot = Quaternion.LookRotation(targetNode.transform.position - transform.position);
+            transform.rotation = Quaternion.Lerp(initRot, targetRot, f);
+            yield return null;
+        }
+
+        transform.rotation = targetRot;
+
+    }*/
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Wall")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
