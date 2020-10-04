@@ -11,6 +11,10 @@ public class graines : MonoBehaviour
 
     public state currentState = state.dispo;
 
+    public Mesh graine;
+    public Mesh pasGraine;
+
+
     private void Update()
     {
         if (currentState == state.planted)
