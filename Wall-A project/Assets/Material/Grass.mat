@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Grass
-  m_Shader: {fileID: 4800000, guid: 3f59b5cc01a8abd4a97e002c0a05b0f4, type: 3}
+  m_Shader: {fileID: 4800000, guid: 890864c3ef85f664d9197ad687a51c4d, type: 3}
   m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -36,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Diffuse:
-        m_Texture: {fileID: 2800000, guid: 5cafe0d4822a1c5498c88ccb89cec51c, type: 3}
+        m_Texture: {fileID: 2800000, guid: c39c3b9bfae8e13489512feb3f1ec2a0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
