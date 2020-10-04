@@ -930,6 +930,20 @@ namespace AmplifyShaderEditor
 			return resetInstrucctions;
 		}
 
+		public bool ContainsSpecialLocalFragVar( TemplateInfoOnSematics info, WirePortDataType type, ref string result )
+		{
+			if( m_specialFragmentLocalVars.ContainsKey( info ) )
+			{
+				result = m_specialFragmentLocalVars[ info ].LocalVarName;
+				if( m_specialFragmentLocalVars[ info ].DataType != type )
+				{
+					result = TemplateHelperFunctions.AutoSwizzleData( result, m_specialFragmentLocalVars[ info ].DataType, type, false );
+				}
+				return true;
+			}
+			return false;
+		}
+
 		public bool GetCustomInterpolatedData( TemplateInfoOnSematics info, WirePortDataType type, PrecisionType precisionType, ref string result, bool useMasterNodeCategory, MasterNodePortCategory customCategory )
 		{
 			bool isPosition =	info == TemplateInfoOnSematics.POSITION ||

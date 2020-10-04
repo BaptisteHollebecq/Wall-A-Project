@@ -411,6 +411,7 @@ namespace AmplifyShaderEditor
 				}
 				break;
 			}
+			m_vertexData += "\t\t\t" + Constants.VertexShaderInputStr + ".vertex.w = 1;\n";
 		}
 
 
@@ -842,7 +843,8 @@ namespace AmplifyShaderEditor
 		{
 			bool excludeUniformKeyword = ( data.PropertyType == PropertyType.InstancedProperty ) || IsSRP;
 
-			string uniformName = UIUtils.GenerateUniformName( excludeUniformKeyword, data.PropertyDataType, data.PropertyName );
+			string uniformName = data.IsMacro?	data.PropertyName:
+												UIUtils.GenerateUniformName( excludeUniformKeyword, data.PropertyDataType, data.PropertyName );
 			if( !m_uniformsDict.ContainsKey( uniformName ) )
 			{
 				PropertyDataCollector newEntry = new PropertyDataCollector( -1, uniformName );
@@ -2211,5 +2213,7 @@ namespace AmplifyShaderEditor
 				return TemplateSRPType.BuiltIn;
 			}
 		}
+
+		public Dictionary<string, PropertyDataCollector> PropertiesDict { get { return m_propertiesDict; } }
 	}
 }

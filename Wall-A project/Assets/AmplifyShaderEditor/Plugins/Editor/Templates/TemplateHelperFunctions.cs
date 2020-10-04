@@ -46,7 +46,8 @@ namespace AmplifyShaderEditor
 		SV_VertexID,
 		SV_PrimitiveID,
 		SV_InstanceID,
-		INTERNALTESSPOS
+		INTERNALTESSPOS,
+		INSTANCEID_SEMANTIC
 	}
 
 	public enum TemplateInfoOnSematics
@@ -108,6 +109,7 @@ namespace AmplifyShaderEditor
 	{
 		RenderType,
 		Queue,
+		DisableBatching,
 		None
 	}
 
@@ -440,6 +442,7 @@ namespace AmplifyShaderEditor
 		{
 			base.SetAllModulesDefault();
 			ColorMaskId = string.Empty;
+			Target = string.Empty;
 			for( int i = 0; i < ColorMaskData.Length; i++ )
 			{
 				ColorMaskData[ i ] = true;
@@ -489,6 +492,17 @@ namespace AmplifyShaderEditor
 		{
 			{ TemplateSpecialTags.RenderType.ToString(), TemplateSpecialTags.RenderType},
 			{ TemplateSpecialTags.Queue.ToString(), TemplateSpecialTags.Queue},
+			{ TemplateSpecialTags.DisableBatching.ToString(), TemplateSpecialTags.DisableBatching},
+		};
+
+		public static readonly Dictionary<string, DisableBatching> StringToDisableBatching = new Dictionary<string, DisableBatching>
+		{
+			{"true",DisableBatching.True},
+			{"True",DisableBatching.True},
+			{"false",DisableBatching.False},
+			{"False",DisableBatching.False},
+			{"LOD Fading",DisableBatching.LODFading},
+			{"LODFading",DisableBatching.LODFading}
 		};
 
 		public static readonly Dictionary<string, RenderType> StringToRenderType = new Dictionary<string, RenderType>
@@ -953,7 +967,7 @@ namespace AmplifyShaderEditor
 		public static readonly string StencilOpGlobalPattern = @"Stencil\s*{([\w\W\s]*)}";
 		public static readonly string StencilOpLinePattern = @"(\w+)\s*(\[*\w+\]*)";
 
-		public static readonly string ShaderGlobalsOverallPattern = "(?:\\/\\*ase_pragma\\*\\/|[\\}\\#])[\\w\\s\\;\\/\\*\\.\\\"]*\\/\\*ase_globals\\*\\/";
+		public static readonly string ShaderGlobalsOverallPattern = @"(?:\/\*ase_pragma\*\/|[\}\#])[\#\&\|\!\<\>\(\)\=\w\s\;\/\*\.\\""]*\/\*ase_globals\*\/";
 		public static readonly string ShaderGlobalsMultilinePattern = @"^\s*(?:uniform\s*)*(\w*)\s*(\w*);$";
 
 		public static readonly string TexSemantic = "float4 {0} : TEXCOORD{1};";
@@ -968,7 +982,7 @@ namespace AmplifyShaderEditor
 		public static readonly string TemplateVarFormat = "{0}.{1}";
 
 		//public static readonly string StructsRemoval = @"struct\s+\w+\s+{[\s\w;\/\*]+};";
-		public static readonly string StructsRemoval = @"struct\s+\w+\s+{[\s\w\(\).;:=,\/\*]+};";
+		public static readonly string StructsRemoval = @"struct\s+\w+\s+{[\#\&\|\!\<\>\s\w\(\).;:=,\/\*]+};";
 
 		public static readonly string SRPBatcherFindTag = @"CBUFFER_START\s*\(\s*UnityPerMaterial\s*\)\s*\n(\s*)";
 
@@ -1110,6 +1124,24 @@ namespace AmplifyShaderEditor
 						duplicatesHelper.Add( newData.PropertyName, newData );
 					}	
 				}
+			}
+		}
+		public const string DepthMacroDeclRegex = @"UNITY_DECLARE_DEPTH_TEXTURE\(\s*_CameraDepthTexture";
+		public static void CheckUnityBuiltinGlobalMacros( string propertyData, ref List<TemplateShaderPropertyData> propertiesList, ref Dictionary<string, TemplateShaderPropertyData> duplicatesHelper )
+		{
+			Match match = Regex.Match( propertyData, DepthMacroDeclRegex );
+			if( match.Success )
+			{
+				TemplateShaderPropertyData newData = new TemplateShaderPropertyData( -1,
+																							string.Empty,
+																							string.Empty,
+																							string.Empty,
+																							Constants.CameraDepthTextureValue,
+																							WirePortDataType.SAMPLER2D,
+																							PropertyType.Global,
+																							true );
+				duplicatesHelper.Add( newData.PropertyName, newData );
+				propertiesList.Add( newData );
 			}
 		}
 
@@ -1865,7 +1897,15 @@ namespace AmplifyShaderEditor
 
 					WirePortDataType dataType = CgToWirePortType[ match.Groups[ 1 ].Value ];
 					string varName = match.Groups[ 2 ].Value;
-					TemplateSemantics semantics = (TemplateSemantics)Enum.Parse( typeof( TemplateSemantics ), match.Groups[ 3 ].Value );
+					TemplateSemantics semantics = TemplateSemantics.NONE;
+					try
+					{
+						semantics = (TemplateSemantics)Enum.Parse( typeof( TemplateSemantics ), match.Groups[ 3 ].Value );
+					}
+					catch(Exception e) 
+					{
+						Debug.LogException( e );
+					}
 					TemplateVertexData templateVertexData = new TemplateVertexData( semantics, dataType, varName );
 					vertexDataList.Add( templateVertexData );
 					vertexDataDict.Add( semantics, templateVertexData );
@@ -1983,7 +2023,16 @@ namespace AmplifyShaderEditor
 					{
 						WirePortDataType dataType = CgToWirePortType[ match.Groups[ 1 ].Value ];
 						string varName = match.Groups[ 2 ].Value;
-						TemplateSemantics semantics = (TemplateSemantics)Enum.Parse( typeof( TemplateSemantics ), match.Groups[ 3 ].Value );
+						TemplateSemantics semantics = TemplateSemantics.NONE;
+						try
+						{
+							semantics = (TemplateSemantics)Enum.Parse( typeof( TemplateSemantics ), match.Groups[ 3 ].Value );
+						}
+						catch( Exception e )
+						{
+							Debug.LogException( e );
+						}
+
 						TemplateVertexData templateVertexData = new TemplateVertexData( semantics, dataType, varName );
 						//interpDataList.Add( templateVertexData );
 						interpDataDict.Add( semantics, templateVertexData );

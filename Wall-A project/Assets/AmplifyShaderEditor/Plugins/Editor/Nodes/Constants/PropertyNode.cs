@@ -1615,7 +1615,7 @@ namespace AmplifyShaderEditor
 				m_oldName = m_propertyName;
 			}
 
-			if( m_variableMode == VariableMode.Fetch )
+			if( m_variableMode == VariableMode.Fetch && m_autoGlobalName )
 			{
 				CurrentVariableMode = VariableMode.Create;
 				CurrentVariableMode = VariableMode.Fetch;

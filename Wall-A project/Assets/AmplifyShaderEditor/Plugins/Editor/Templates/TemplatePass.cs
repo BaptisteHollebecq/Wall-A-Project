@@ -129,6 +129,10 @@ namespace AmplifyShaderEditor
 
 			Dictionary<string, TemplateShaderPropertyData> ownDuplicatesDict = new Dictionary<string, TemplateShaderPropertyData>( duplicatesHelper );
 			TemplateHelperFunctions.CreateShaderGlobalsList( passInfo.Data, ref m_availableShaderGlobals, ref ownDuplicatesDict );
+			if( m_modules.SRPType == TemplateSRPType.BuiltIn )
+			{
+				TemplateHelperFunctions.CheckUnityBuiltinGlobalMacros( passInfo.Data, ref m_availableShaderGlobals, ref ownDuplicatesDict );
+			}
 
 			// Vertex and Interpolator data
 			FetchVertexAndInterpData( template, subShader.Modules, offsetIdx, passInfo.Data );
