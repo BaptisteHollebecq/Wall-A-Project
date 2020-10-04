@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: 890864c3ef85f664d9197ad687a51c4d
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Diffuse: {fileID: 2800000, guid: 5cafe0d4822a1c5498c88ccb89cec51c, type: 3}
+  - _HalftoneMap: {fileID: 2800000, guid: 09372b39b8ef94f42ad3338fbe41ab46, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
