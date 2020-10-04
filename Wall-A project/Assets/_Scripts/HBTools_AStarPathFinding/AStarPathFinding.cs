@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AStarPathFinding
 {
@@ -65,8 +66,10 @@ public class AStarPathFinding
         if (i == grid.Count)
             Debug.LogWarning("Error : AstartPathFinding infinite loop");
         if (hasFound == false)
+        {
             Debug.LogWarning("Error : AstartPathFinding can't find a path");
-
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
 }

@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WallA : MonoBehaviour
 {
     public PathMaster path;
     public float movementSpeed = 1;
+    public float rotationSpeed = .2f;
 
     [HideInInspector] public List<Transform> way = new List<Transform>();
     [HideInInspector] public GameObject currentNode;
@@ -43,8 +45,9 @@ public class WallA : MonoBehaviour
 
     IEnumerator MoveToNextNode()
     {
+        StartCoroutine(RotateTowards());
         var initPos = transform.position;
-       //var initRot = m_Transform.rotation;
+       
 
         for (float f = 0; f < 1; f += Time.deltaTime / movementSpeed)
         {
@@ -60,5 +63,28 @@ public class WallA : MonoBehaviour
        // Debug.Log(currentNode);
 
         GetNextNode();
+    }
+
+    IEnumerator RotateTowards()
+    {
+        var initRot = transform.rotation;
+        var targetRot = Quaternion.LookRotation(targetNode.transform.position - transform.position);
+
+        for (float f = 0; f < 1; f += Time.deltaTime / rotationSpeed)
+        {
+            transform.rotation = Quaternion.Lerp(initRot, targetRot, f);
+            yield return null;
+        }
+
+        transform.rotation = targetRot;
+
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Wall")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
