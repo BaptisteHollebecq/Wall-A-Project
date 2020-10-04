@@ -7,6 +7,7 @@ public class WallA : MonoBehaviour
 {
     public PathMaster path;
     public float movementSpeed = 1;
+    public float rotationSpeed = .2f;
 
     [HideInInspector] public List<Transform> way = new List<Transform>();
     [HideInInspector] public GameObject currentNode;
@@ -44,7 +45,7 @@ public class WallA : MonoBehaviour
 
     IEnumerator MoveToNextNode()
     {
-        //StartCoroutine(RotateTowards());
+        StartCoroutine(RotateTowards());
         var initPos = transform.position;
        
 
@@ -64,20 +65,20 @@ public class WallA : MonoBehaviour
         GetNextNode();
     }
 
-  /*  IEnumerator RotateTowards()
+    IEnumerator RotateTowards()
     {
         var initRot = transform.rotation;
+        var targetRot = Quaternion.LookRotation(targetNode.transform.position - transform.position);
 
-        for (float f = 0; f < 1; f += Time.deltaTime / movementSpeed)
+        for (float f = 0; f < 1; f += Time.deltaTime / rotationSpeed)
         {
-            var targetRot = Quaternion.LookRotation(targetNode.transform.position - transform.position);
             transform.rotation = Quaternion.Lerp(initRot, targetRot, f);
             yield return null;
         }
 
         transform.rotation = targetRot;
 
-    }*/
+    }
 
     private void OnCollisionEnter(Collision collision)
     {

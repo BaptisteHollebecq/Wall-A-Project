@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d533a331465984aa9a8423c8224482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walla: {fileID: 2114419671}
+  walla: {fileID: 2114419672}
   edgesLenght: 11
   nodeLayer:
     serializedVersion: 2
@@ -4177,6 +4177,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4417383234689325108, guid: 221ed45c29c8edc42a4b34190113c23d,
+        type: 3}
+      propertyPath: path
+      value: 
+      objectReference: {fileID: 59827614}
+    - target: {fileID: 4417383234689325108, guid: 221ed45c29c8edc42a4b34190113c23d,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 4807850458558392601, guid: 221ed45c29c8edc42a4b34190113c23d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4255,11 +4265,11 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2114419669}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2114419671
+--- !u!114 &2114419672 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4417383234689325108, guid: 221ed45c29c8edc42a4b34190113c23d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2114419669}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114419670}
   m_Enabled: 1
@@ -4267,14 +4277,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30698e81aba30549a4de196005e2200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: {fileID: 59827614}
-  movementSpeed: 1
-  way: []
-  currentNode: {fileID: 0}
-  targetNode: {fileID: 0}
-  index: 1
-  graines: 0
-  inventory: []
 --- !u!54 &2114419673
 Rigidbody:
   m_ObjectHideFlags: 0
