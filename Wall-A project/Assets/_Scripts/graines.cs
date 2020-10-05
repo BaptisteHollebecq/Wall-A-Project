@@ -11,6 +11,10 @@ public class graines : MonoBehaviour
 
     public state currentState = state.dispo;
 
+    public MeshFilter mesh;
+    public Mesh avecGraines;
+    public Mesh sansGraines;
+
     private void Update()
     {
         if (currentState == state.planted)
@@ -25,6 +29,7 @@ public class graines : MonoBehaviour
         yield return new WaitForSeconds(waitingTime);
         dispo = true;
         currentState = state.dispo;
+        mesh.mesh = avecGraines;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,6 +41,7 @@ public class graines : MonoBehaviour
             {
                 dispo = false;
                 currentState = state.took;
+                mesh.mesh = sansGraines;
                 other.GetComponent<WallA>().graines += 1;
                 Debug.Log(other.GetComponent<WallA>().graines);
                 other.GetComponent<WallA>().inventory.Add(this);
