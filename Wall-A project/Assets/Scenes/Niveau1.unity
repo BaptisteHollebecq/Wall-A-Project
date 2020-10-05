@@ -648,7 +648,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: d933d93b6f216234c92e3464bb5037d6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -692,8 +692,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 0.011764707, b: 0.011764707, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -2531,6 +2531,11 @@ PrefabInstance:
       propertyPath: lookAtTransform
       value: 
       objectReference: {fileID: 2121783125}
+    - target: {fileID: 5448349631096996956, guid: 4a218e47f4784e44e9ca64e5e535d95b,
+        type: 3}
+      propertyPath: cameraSpeed
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 5448349631096996959, guid: 4a218e47f4784e44e9ca64e5e535d95b,
         type: 3}
       propertyPath: m_LocalPosition.x

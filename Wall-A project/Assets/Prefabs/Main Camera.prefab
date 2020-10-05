@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtTransform: {fileID: 0}
-  cameraSpeed: 300
+  cameraSpeed: 100
   automatic: 0
 --- !u!1 &8772796984632543163
 GameObject:
