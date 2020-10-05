@@ -14,7 +14,6 @@ public class Camera : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             transform.Translate(Vector3.left * cameraSpeed * Time.fixedDeltaTime);
-            Debug.Log("left");
         }
 
         if (Input.GetKey(KeyCode.E))
