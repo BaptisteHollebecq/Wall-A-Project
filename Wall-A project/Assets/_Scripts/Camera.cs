@@ -6,19 +6,27 @@ public class Camera : MonoBehaviour
 {
     public Transform lookAtTransform;
     public float cameraSpeed = 5;
+    public bool automatic = false;
 
     private void Update()
     {
         transform.LookAt(lookAtTransform);
 
-        if (Input.GetKey(KeyCode.A))
+        if (!automatic)
+        {
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Translate(Vector3.left * cameraSpeed * Time.fixedDeltaTime);
+            }
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                transform.Translate(Vector3.right * cameraSpeed * Time.fixedDeltaTime);
+            }
+        }
+        else
         {
             transform.Translate(Vector3.left * cameraSpeed * Time.fixedDeltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            transform.Translate(Vector3.right * cameraSpeed * Time.fixedDeltaTime);
         }
     }
 }
