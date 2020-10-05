@@ -9,6 +9,14 @@ public class Camera : MonoBehaviour
     public float cameraSpeed = 5;
     public bool automatic = false;
 
+    private float xRot;
+    private float zRot;
+
+    private void Awake()
+    {
+        xRot = transform.rotation.x;
+    }
+
     private void Update()
     {
         transform.LookAt(lookAtTransform);
@@ -29,6 +37,8 @@ public class Camera : MonoBehaviour
         {
             transform.Translate(Vector3.left * cameraSpeed * Time.fixedDeltaTime);
         }
+
+        transform.rotation = Quaternion.Euler(xRot, transform.rotation.y, zRot);
 
 
         if (Input.GetKey(KeyCode.Escape))
