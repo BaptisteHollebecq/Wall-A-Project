@@ -140,6 +140,8 @@ public class PathMaster : MonoBehaviour
         for (int i = 0; i < goodPath.Count-1; i++)
         {
             Debug.DrawRay(goodPath[i].position, goodPath[i + 1].position - goodPath[i].position, Color.green, 1f);
+            GetComponent<LineRenderer>().positionCount = goodPath.Count - 1;
+            GetComponent<LineRenderer>().SetPosition(i, goodPath[i].position);
         }
     }
 }
