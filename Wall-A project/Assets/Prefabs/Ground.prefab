@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   path: {fileID: 0}
   Wall: {fileID: 4127412352268608718, guid: 0f7295d857e40674c883517b8d7b8a99, type: 3}
-  decayTime: 10
+  decayTime: 20
 --- !u!1001 &7120337888238620345
 PrefabInstance:
   m_ObjectHideFlags: 0
