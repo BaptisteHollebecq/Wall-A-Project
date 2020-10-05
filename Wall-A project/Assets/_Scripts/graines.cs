@@ -11,9 +11,8 @@ public class graines : MonoBehaviour
 
     public state currentState = state.dispo;
 
-    public MeshFilter mesh;
-    public Mesh avecGraines;
-    public Mesh sansGraines;
+    public Transform avecGraines;
+    public Transform sansGraines;
 
     private void Update()
     {
@@ -29,7 +28,8 @@ public class graines : MonoBehaviour
         yield return new WaitForSeconds(waitingTime);
         dispo = true;
         currentState = state.dispo;
-        mesh.mesh = avecGraines;
+        avecGraines.gameObject.SetActive(true);
+        sansGraines.gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -41,7 +41,8 @@ public class graines : MonoBehaviour
             {
                 dispo = false;
                 currentState = state.took;
-                mesh.mesh = sansGraines;
+                avecGraines.gameObject.SetActive(false);
+                sansGraines.gameObject.SetActive(true);
                 other.GetComponent<WallA>().graines += 1;
                 Debug.Log(other.GetComponent<WallA>().graines);
                 other.GetComponent<WallA>().inventory.Add(this);
