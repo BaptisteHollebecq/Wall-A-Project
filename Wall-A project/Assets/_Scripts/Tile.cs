@@ -23,7 +23,7 @@ public class Tile : MonoBehaviour
         path.walla.inventory[0].currentState = state.planted;
         path.walla.inventory.RemoveAt(0);
         isGrown = true;
-        wallInstance = Instantiate(Wall, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
+        wallInstance = Instantiate(Wall, new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z), Quaternion.identity);
 
         StartCoroutine(Decay());
         if (path.walla.index != path.walla.way.Count)
