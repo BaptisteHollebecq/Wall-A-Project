@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Camera : MonoBehaviour
 {
@@ -28,5 +29,9 @@ public class Camera : MonoBehaviour
         {
             transform.Translate(Vector3.left * cameraSpeed * Time.fixedDeltaTime);
         }
+
+
+        if (Input.GetKey(KeyCode.Escape))
+            SceneManager.LoadScene(0);
     }
 }
